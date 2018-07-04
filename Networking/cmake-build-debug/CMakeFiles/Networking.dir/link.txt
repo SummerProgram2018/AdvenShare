@@ -1,3 +1,0 @@
-"C:\Users\Sam Eadie\Documents\Program Files\JetBrains\CLion 2017.2\bin\cmake\bin\cmake.exe" -E remove -f CMakeFiles\Networking.dir/objects.a
-C:\Users\SAMEAD~1\DOCUME~1\PROGRA~1\minGW\bin\ar.exe cr CMakeFiles\Networking.dir/objects.a @CMakeFiles\Networking.dir\objects1.rsp
-C:\Users\SAMEAD~1\DOCUME~1\PROGRA~1\minGW\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\Networking.dir/objects.a -Wl,--no-whole-archive  -o Networking.exe -Wl,--out-implib,libNetworking.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Networking.dir\linklibs.rsp
