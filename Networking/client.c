@@ -14,8 +14,7 @@
 
 #include "utils.h"
 
-struct in_addr* name_to_IP_addr(char* hostname)
-{
+struct in_addr* name_to_IP_addr(char* hostname) {
     int error;
     struct addrinfo* addressInfo;
 
@@ -23,12 +22,12 @@ struct in_addr* name_to_IP_addr(char* hostname)
     if(error) {
         return NULL;
     }
+
     // Extract the IP address and return it
     return &(((struct sockaddr_in*)(addressInfo->ai_addr))->sin_addr);
 }
 
-int connect_to(struct in_addr* ipAddress, int port)
-{
+int connect_to(struct in_addr* ipAddress, int port) {
     struct sockaddr_in socketAddr;
     int fd;
 
@@ -56,8 +55,7 @@ int connect_to(struct in_addr* ipAddress, int port)
     return fd;
 }
 
-void send_HTTP_request(int fd, char* file, char* host)
-{
+void send_HTTP_request(int fd, char* file, char* host) {
     char* requestString;
 
     // Allocate enough space for our HTTP request. HTTP request
@@ -78,52 +76,67 @@ void send_HTTP_request(int fd, char* file, char* host)
     free(requestString);
 }
 
-void get_and_output_HTTP_response(int fd)
-{
-    char buffer[1024];
+void interact (int fd) {
+    char* buffer;
     int numBytesRead;
-    int eof = 0;
 
-    // Repeatedly read from network fd until nothing is left (EOF)
-    // Print everything out to stdout
-    while(!eof) {
-        numBytesRead = read(fd, buffer, 1024);
-        if(numBytesRead < 0) {
-            perror("Read error\n");
-            exit(1);
-        } else if(numBytesRead == 0) {
-            eof = 1;
+    FILE* outStream, *inStream;
+    get_file_stream(fd, &outStream, &inStream);
+
+    char* welcomeMessage = get_next_line(inStream);
+    printf("%s\n", welcomeMessage);
+    fflush(stdout);
+
+    while(1) {
+
+        buffer = get_next_line(stdin);
+
+        if(0) { //numBytesRead <=  0) {
+            continue;
         } else {
-            // Write out bytes to stdout
-            fwrite(buffer, sizeof(char), numBytesRead, stdout);
+            // Write out to server
+            fprintf(outStream, "%s\n", buffer);
+            fflush(outStream);
+
+            buffer = get_next_line(inStream);
+
+            fprintf(stdout, "From server: %s\n", buffer);
+            fflush(stdout);
+        
         }
     }
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {   
     int fd;
-    struct in_addr* ipAddress;
+    struct in_addr* ipAddress = malloc(sizeof(struct in_addr));
     char* hostname;
+    int port;
+    char* remainder;
 
-    if(argc != 2) {
-        fprintf(stderr, "Usage: %s hostname\n", argv[0]);
+    if(argc != 3) {
+        fprintf(stderr, "Usage: %s IPAddress Port\n", argv[0]);
         exit(1);
     }
-    hostname = argv[1];
 
-    // Convert hostname to IP address
-    ipAddress = name_to_IP_addr(hostname);
-    if(!ipAddress) {
-        fprintf(stderr, "%s is not a valid hostname\n", hostname);
+    hostname = argv[1];
+    port = (int)strtol(argv[2], &remainder, 10);
+
+    if(strlen(remainder) || (port < 1024) || (port > 65535)) {
+        fprintf(stderr, "Invalid port nunmber\n");
+        exit(1);
+    }
+
+    if(!inet_aton(hostname, ipAddress)) {
+        fprintf(stderr, "Invalid IP address\n");
         exit(1);
     }
 
     // Establish a connection to port 80 on given IP address
-    fd = connect_to(ipAddress, 80);
-    // Send request to server for the top level web page (/)
-    send_HTTP_request(fd, "/", hostname);
-    // Retrieve the response and print it out
-    get_and_output_HTTP_response(fd);
+    fd = connect_to(ipAddress, port);
+    
+    interact(fd);
+
     // Close socket
     close(fd);
     return 0;

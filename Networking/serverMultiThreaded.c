@@ -128,6 +128,8 @@ void* client_thread(void* arg) {
 
     // Repeatedly read data from client, turn it into uppercase, send it back
     while((numBytesRead = read(fd, buffer, 1024)) > 0) {
+        fprintf(stdout, "Recevied from client: '%s'\n", buffer);
+        fflush(stdout);
         capitalise(buffer, numBytesRead);
         write(fd, buffer, numBytesRead);
     }

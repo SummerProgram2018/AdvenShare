@@ -9,6 +9,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#define INITIAL_LINE_SIZE 100
+
 /**
  * Converts a file descriptor into two FILE*s, for both input and output
  */
@@ -22,15 +24,17 @@ void get_file_stream(int fd, FILE** outStream, FILE** inStream) {
 /**
  * Reads from FILE until a '\n' and returns the string message. Returns EOF
  */
-char* get_next_line(FILE* stream, int exitStatus) {
+char* get_next_line(FILE* stream) {
     char* line = malloc(sizeof(char) * INITIAL_LINE_SIZE);
     char currentLetter = fgetc(stream);
     int len = 0;
 
     while((currentLetter != '\n')) {
+        
         if(currentLetter == EOF) {
             return EOF;
         }
+
         if(sizeof(line) + 1 >= len * sizeof(char)) {
             line = realloc(line, 2 * sizeof(line));
         }
@@ -39,5 +43,6 @@ char* get_next_line(FILE* stream, int exitStatus) {
     }
 
     line[len++] = '\0';
+    
     return line;
 }

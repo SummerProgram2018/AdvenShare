@@ -14,6 +14,6 @@ void get_file_stream(int fd, FILE** outStream, FILE** inStream);
  * Reads from FILE until a '\n' and returns the string message. Will exit
  * with the specified exitStatus if it receives an EOF
  */
-char* get_next_line(FILE* stream, int exitStatus);
+char* get_next_line(FILE* stream);
 
 #endif //NETWORKING_UTILS_H
