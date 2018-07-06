@@ -79,6 +79,7 @@ export default class BasicInfo extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.list}>
+          <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
         </View>
         <Text>Basic Info</Text>
         <BottomBar navigation={this.props.navigation}></BottomBar>
@@ -97,6 +98,15 @@ var styles = StyleSheet.create({
        flex:1,
        flexDirection: 'row',
        height: 100,
+   },
+   backgroundImage:{
+     backgroundColor: 'transparent',
+     flex: 1,
+     resizeMode: 'contain',
+     position: 'absolute',
+     width: '100%',
+     height: '100%',
+     justifyContent: 'center',
    },
    bottomBar: {
        backgroundColor:'gray',

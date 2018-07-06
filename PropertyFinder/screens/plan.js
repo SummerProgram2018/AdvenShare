@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 import BottomBar from "../navigation";
 
 const instructions = Platform.select({
@@ -23,6 +23,7 @@ export default class Plan extends Component<Props> {
     return (
       <View style={styles.container}>
         <View style={styles.list}>
+          <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
         </View>
         <Text>Plan</Text>
         <BottomBar navigation={this.props.navigation}></BottomBar>
@@ -34,6 +35,15 @@ export default class Plan extends Component<Props> {
 var styles = StyleSheet.create({
   container:{
     flex:1,
+  },
+  backgroundImage:{
+    backgroundColor: 'transparent',
+    flex: 1,
+    resizeMode: 'contain',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
   },
   list: {
        justifyContent: 'center',
