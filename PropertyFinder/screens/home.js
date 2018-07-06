@@ -21,6 +21,18 @@ type Props = {};
 export default class Home extends Component<Props> {
   render() {
     return (
+      <Image
+        style={{
+          backgroundColor: 'transparent',
+          flex: 1,
+          resizeMode,
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+        }}
+        source={}
+      >
       <View style={styles.container}>
         <View style={styles.list}>
         </View>

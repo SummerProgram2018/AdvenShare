@@ -5,7 +5,7 @@ import {TouchableOpacity, Image, Platform, StyleSheet, Text, View, Button} from 
 class NavigationButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {pressStatus: true };
+    this.state = {pressStatus: true};
   }
   render() {
     return (
@@ -25,6 +25,7 @@ class NavigationButton extends Component {
     );
   }
 }
+
 export default class BottomBar extends Component {
   render() {
     return (
