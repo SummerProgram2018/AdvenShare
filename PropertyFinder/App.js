@@ -7,27 +7,48 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import {TabBarBottom, createStackNavigator} from 'react-navigation';
+import Home from "./screens/home";
+import BasicInfo from "./screens/basicInfo";
+import MyDiary from "./screens/myDiary";
+import Chat from "./screens/chat";
+import Plan from "./screens/plan";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class App extends Component<Props> {
+const RootStack = createStackNavigator(
+  {
+    Home: Home,
+    BasicInfo: BasicInfo,
+    MyDiary: MyDiary,
+    Chat: Chat,
+    Plan: Plan,
+  },
+  {
+    initialRouteName: "Home",
+    navigationOptions: {
+      header: null,
+      tabBarVisible: false
+    }
+  }
+);
+
+
+export default class App extends React.Component {
   render() {
+    return <RootStack />;
+  }
+}
+    /*
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>Farking Christ, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.instructions}></Text>
+        <Routes />
       </View>
-    );
-  }
-}
+    );*/
+
 
 const styles = StyleSheet.create({
   container: {
@@ -45,5 +66,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  image:{
+    width: '100%',
+    height: 60,
+    resizeMode: 'contain'
   },
 });
