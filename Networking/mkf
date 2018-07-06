@@ -1,0 +1,20 @@
+CFLAGS= -Wall -pedantic -std=gnu99 -g -lpthread -I$(C:\Users\Sam Eadie\Documents\Program Files\minGW\include)
+CLINKFLAGS= -Wall -pedantic -std=gnu99 -g -lpthread -L$(C:\Users\Sam Eadie\Documents\Program Files\minGW\include) -la4
+
+ALLOS= utils.o
+ALLCS= utils.c 
+ALLHS= utils.h
+
+all: client.exe
+
+client.exe: $(ALLOS) $(ALLHS) client.o
+	touch client.c 
+	gcc $(CLINKFLAGS) $(ALLOS) client.o -o client
+	
+client.o: $(ALLCS) $(ALLHS)
+	gcc $(CFLAGS) client.c -c -o client.o
+
+utils.o:
+	gcc $(CFLAGS) utils.c -c -o utils.o
+
+
