@@ -7,7 +7,7 @@
  */
 
 import React, {Component, YellowBox} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Image, CameraRoll} from 'react-native';
 import {TabBarBottom, createStackNavigator, TabNavigator} from 'react-navigation';
 import Home from "./screens/home";
 import Me from "./screens/me";
@@ -16,6 +16,7 @@ import Chat from "./screens/chat";
 import Plan from "./screens/plan";
 import Login from "./screens/login";
 import Register from "./screens/register";
+import ImageBrowser from "./screens/imageBrowser";
 
 const HomeTab = createStackNavigator(
   {
@@ -46,7 +47,7 @@ const DiaryTab = createStackNavigator(
       navigationOptions: {
         header: null
       }
-    }
+    },
     ImageBrowser: {
       screen: ImageBrowser
     }
