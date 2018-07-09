@@ -26,7 +26,6 @@ export default class Plan extends Component<Props> {
           <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
         </View>
         <Text>Plan</Text>
-        <BottomBar navigation={this.props.navigation}></BottomBar>
       </View>
     );
   }
@@ -52,32 +51,4 @@ var styles = StyleSheet.create({
        flexDirection: 'row',
        height: 100,
    },
-   bottomBar: {
-       backgroundColor:'gray',
-       flexDirection: 'row',
-       width: '100%',
-       height: 50,
-       bottom: 0
-   },
-   buttons1:{
-     backgroundColor:'transparent',
-     flex: 1,
-   },
-   buttons2:{
-     backgroundColor:'transparent',
-     flex: 1
-   },
-   buttons3:{
-     backgroundColor:'transparent',
-     flex: 1
-   },
-   buttons4:{
-     backgroundColor:'transparent',
-     flex: 1
-   },
-   image:{
-     width: '100%',
-     height: 50,
-     resizeMode: 'contain'
-  },
 });
