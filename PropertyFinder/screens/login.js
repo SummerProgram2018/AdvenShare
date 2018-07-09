@@ -8,7 +8,7 @@
 
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, Dimensions, View, Image, TextInput, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, Dimensions, View, Image, TextInput, Button, TouchableOpacity} from 'react-native';
 import {NavigationButton} from "../navigation";
 
 class Inputs extends Component {
@@ -35,7 +35,7 @@ class Inputs extends Component {
    }
   render() {
     return (
-      <View style = {styles.container}>
+        <View style={styles.inputsContainer}>
             <TextInput style = {styles.input}
                underlineColorAndroid = "#ffffff"
                placeholder = "Username"
@@ -43,7 +43,6 @@ class Inputs extends Component {
                autoCapitalize = "none"
                buttonColor = "#ffffff"
                onChangeText = {this.handleUsername}/>
-
             <TextInput style = {styles.input}
                underlineColorAndroid = "#ffffff"
                placeholder = "Password"
@@ -52,17 +51,15 @@ class Inputs extends Component {
                buttonColor = "#ffffff"
                secureTextEntry = {true}
                onChangeText = {this.handlePassword}/>
-
-            <TouchableOpacity
-               style = {styles.submitButton}
-               onPress = {
-                  () => this.login(this.state.username, this.state.password)
-               }
-             >
-            <Text
-               style = {styles.submitButtonText, color = "#666666"}>
-               Submit </Text>
-            </TouchableOpacity>
+            <View style={styles.submitButton}>
+              <View style={{width: 100}}>
+                <Button
+                  onPress = {() => this.login(this.state.username, this.state.password)}
+                  title="SIGN IN"
+                  color="#CCCCCC"
+                />
+              </View>
+            </View>
          </View>
     );
   }
@@ -73,18 +70,16 @@ export default class Login extends Component {
   render() {
     return (
         <View style={styles.container}>
-          <Image style={styles.backgroundImage} source={require('../res/loginBackground.png')}/>
+          <Image style={styles.backgroundImage} source={require('../res/LoginBackground.png')}/>
           <View style = {styles.advenShareLogo}>
-            <Image source ={require('../res/AdvenShare.jpg')} style={styles.logo}/>
+            <Image source ={require('../res/AdvenShare.png')} style={styles.logo}/>
           </View>
           <View style = {styles.logInTextBox}>
             <Text style= {styles.logInText}>
             LOG IN
             </Text>
           </View>
-          <View style = {styles.logInEntry}>
-            <Inputs/>
-          </View>
+          <Inputs/>
           <View style = {styles.additionalLinks}>
           </View>
           <View style = {styles.placeHolder}/>
@@ -139,10 +134,15 @@ var styles = StyleSheet.create({
      fontSize: 20,
    },
    logInEntry: {
-    flex: 15,
-    backgroundColor: "#6dbfeb",
+    flex: 20,
+    marginLeft: 30,
+    marginRight: 30,
+    borderRadius: 5,
+    backgroundColor: "rgb(109, 191, 235)",
     justifyContent: 'center',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    borderColor: '#000000',
+    borderWidth: 0.5,
    },
    additionalLinks: {
     flex: 1,
@@ -151,5 +151,33 @@ var styles = StyleSheet.create({
   },
   placeHolder: {
     flex: 20
+  },
+  inputsContainer: {
+    flex: 20,
+    marginLeft: 30,
+    marginRight: 30,
+    padding: 5,
+    borderRadius: 5,
+    backgroundColor: "rgb(109, 191, 235)",
+    alignItems: 'stretch',
+    resizeMode: 'contain',
+    borderColor: '#000000',
+    borderWidth: 0.5,
+  },
+  input: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    height: 6,
+    borderRadius: 5
+  },
+  submitButton: {
+    flex: 2,
+    marginTop: 10,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
