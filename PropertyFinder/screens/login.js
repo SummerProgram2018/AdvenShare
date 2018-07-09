@@ -18,7 +18,7 @@ export default class Login extends Component {
             <NavigationButton
               navigation ={this.props.navigation}
               navKey='Register'
-              src={require('../res/Discover.png')}>
+              src={require('../res/icons/Discover.png')}>
             </NavigationButton>
           </View>
           <Text>Login</Text>
