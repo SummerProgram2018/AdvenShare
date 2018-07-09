@@ -1,28 +1,40 @@
-<<<<<<< HEAD
-
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, TextInput, Button,
-  TouchableOpacity, AppRegistry, TouchableHighlight, Modal, CameraRoll,
-  Dimensions, ScrollView} from 'react-native';
-
-export default class ImageBrowser extends Component{
-  
-}
-=======
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 
 export default class ImageBrowser extends Component {
+
+  state = {
+  modalVisible: false,
+  photos: [],
+  index: null
+  }
+
+  getPhotos = () => {
+    CameraRoll.getPhotos({
+      first: 4,
+      assetType: 'All' /*Change this line if we want only photos (currently gets video too)*/
+    })
+    .then(r => this.setState({ photos: r.edges }))
+  }
+
   render() {
     return (
+
+      componentDidMount(){
+        this.getPhotos()
+        <Image
+          style={{
+            width: 51,
+            height: 51,
+            resizeMode: Image.resizeMode.contain,
+          }}
+          source={{
+            this.state.photos
+          }}
+      }
+        />
+        </View>
         <View style={styles.container}>
           <View style={styles.list}>
             <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
@@ -54,4 +66,3 @@ var styles = StyleSheet.create({
        height: 100,
    },
 });
->>>>>>> 40bbca4534e1a9d49b406791402036ae6ec7cd18
