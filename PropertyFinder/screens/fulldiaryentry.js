@@ -15,7 +15,7 @@ export default class Entry extends Component {
   constructor (props, context) {
     super (props, context);
     this.state = {
-      text: ''
+      text: '',
       city: ''
     };
       onPressLearnMore = this.onPressLearnMore.bind(this)
@@ -25,14 +25,15 @@ export default class Entry extends Component {
     }
     render() {
       return (
-        <TextInput
-        {...this.props} //Inherit any properties passed
-        editable = {true}
-        maxLength = {100}
-        multiline = {true}
-        numberOfLines = {10}
-        />
+
         <View style={styles.container}>
+          <TextInput
+          {...this.props} //Inherit any properties passed
+          editable = {true}
+          maxLength = {100}
+          multiline = {true}
+          numberOfLines = {10}
+          />
             <View style={styles.list}>
                 <TextInput
                   editable = {true}
@@ -42,7 +43,7 @@ export default class Entry extends Component {
                   onChangeText = {(text) => this.setState({text})}
                   value = {this.state.text}
                 />
-              <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
+            {/* <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/> */ }
             </View>
           <View style={styles.diaryView}>
           <Button
@@ -56,7 +57,7 @@ export default class Entry extends Component {
       );
     }
   }
-}
+
 
 var styles = StyleSheet.create({
   container:{
