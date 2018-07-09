@@ -47,6 +47,9 @@ const DiaryTab = createStackNavigator(
         header: null
       }
     }
+    ImageBrowser: {
+      screen: ImageBrowser
+    }
   }
 )
 

@@ -33,7 +33,7 @@ AppRegistry.registerComponent('rncameraroll, () => Navigation');
 
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class PhotoBrowse extends Component<Props> {
 
   static navigationOptions = {
       title: 'Camera Roll'
