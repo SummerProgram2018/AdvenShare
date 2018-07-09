@@ -7,7 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import {TouchableOpacity, Image, Platform, StyleSheet, Text, View, Button} from 'react-native';
+import BottomBar from "../navigation";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -16,15 +17,19 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class Chat extends Component<Props> {
+
+export default class Me extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {text: ""}
+  }
   render() {
     return (
         <View style={styles.container}>
           <View style={styles.list}>
             <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
           </View>
-          <Text>Chat</Text>
+          <Text>Basic Info</Text>
         </View>
     );
   }
@@ -34,20 +39,20 @@ var styles = StyleSheet.create({
   container:{
     flex:1,
   },
-  backgroundImage:{
-    backgroundColor: 'transparent',
-    flex: 1,
-    resizeMode: 'contain',
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-  },
   list: {
        justifyContent: 'center',
        flexWrap: 'wrap',
        flex:1,
        flexDirection: 'row',
        height: 100,
+   },
+   backgroundImage:{
+     backgroundColor: 'transparent',
+     flex: 1,
+     resizeMode: 'contain',
+     position: 'absolute',
+     width: '100%',
+     height: '100%',
+     justifyContent: 'center',
    },
 });

@@ -9,22 +9,15 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class Chat extends Component<Props> {
+export default class Register extends Component {
   render() {
     return (
         <View style={styles.container}>
           <View style={styles.list}>
             <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
           </View>
-          <Text>Chat</Text>
+          <Text>Register</Text>
         </View>
     );
   }
