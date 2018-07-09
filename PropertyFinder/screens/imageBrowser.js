@@ -1,13 +1,16 @@
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, CameraRoll} from 'react-native';
 
 export default class ImageBrowser extends Component {
-
-  state = {
-  modalVisible: false,
-  photos: [],
-  index: null
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      modalVisible: false,
+      photos: [],
+      index: null
+    }
+    getPhotos = this.getPhotos.bind(this)
+    componentDidMount = this.componentDidMount.bind(this)
   }
 
   getPhotos = () => {
@@ -18,29 +21,19 @@ export default class ImageBrowser extends Component {
     .then(r => this.setState({ photos: r.edges }))
   }
 
+  componentDidMount() {
+    this.getPhotos();
+  }
+
   render() {
     return (
-
-      componentDidMount(){
-        this.getPhotos()
+      <View style={styles.container}>
         <Image
-          style={{
-            width: 51,
-            height: 51,
-            resizeMode: Image.resizeMode.contain,
-          }}
-          source={{
-            this.state.photos
-          }}
-      }
+          style={styles.photos}
+          source={this.state.photos}
         />
-        </View>
-        <View style={styles.container}>
-          <View style={styles.list}>
-            <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
-          </View>
-          <Text>Image Browser</Text>
-        </View>
+        <Text>Image Browser</Text>
+      </View>
     );
   }
 }
@@ -65,4 +58,9 @@ var styles = StyleSheet.create({
        flexDirection: 'row',
        height: 100,
    },
+   photos: {
+     width: 51,
+     height: 51,
+     resizeMode: 'contain'
+   }
 });
