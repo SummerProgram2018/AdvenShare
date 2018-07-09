@@ -24,6 +24,23 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+class AddPlace extends Component {
+  constructor (props, context) {
+    super (props, context);
+    this.state = {
+      city: ''
+    };
+
+  render () {
+    return (
+      <button
+        title = 'Manually Change location'
+        onPress={this.navigate}
+    />
+    )
+  }
+}
+
 class DiaryTextInput extends Component{
   render () {
     return (
