@@ -6,70 +6,148 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button} from 'react-native';
-import {TabBarBottom, createStackNavigator} from 'react-navigation';
+import React, {Component, YellowBox} from 'react';
+import {Platform, StyleSheet, Text, View, Button, Image} from 'react-native';
+import {TabBarBottom, createStackNavigator, TabNavigator} from 'react-navigation';
 import Home from "./screens/home";
-import BasicInfo from "./screens/basicInfo";
-import MyDiary from "./screens/myDiary";
+import Me from "./screens/me";
+import Diary from "./screens/diary";
 import Chat from "./screens/chat";
 import Plan from "./screens/plan";
+import Login from "./screens/login";
+import Register from "./screens/register";
 
-
-const RootStack = createStackNavigator(
+const HomeTab = createStackNavigator(
   {
-    Home: Home,
-    BasicInfo: BasicInfo,
-    MyDiary: MyDiary,
-    Chat: Chat,
-    Plan: Plan,
-  },
-  {
-    initialRouteName: "Home",
-    navigationOptions: {
-      header: null,
-      tabBarVisible: false
+    HomeTab: {
+      screen: Home,
+      navigationOptions: {
+        header: null
+      }
     }
   }
-);
+)
 
+const MeTab = createStackNavigator(
+  {
+    MeTab: {
+      screen: Me,
+      navigationOptions: {
+        header: null
+      }
+    }
+  }
+)
+
+const DiaryTab = createStackNavigator(
+  {
+    DiaryTab: {
+      screen: Diary,
+      navigationOptions: {
+        header: null
+      }
+    }
+  }
+)
+
+const ChatTab = createStackNavigator(
+  {
+    ChatTab: {
+      screen: Chat,
+      navigationOptions: {
+        header: null
+      }
+    }
+  }
+)
+
+const PlanTab = createStackNavigator(
+  {
+    PlanTab: {
+      screen: Plan,
+      navigationOptions: {
+        header: null
+      }
+    }
+  }
+)
+
+const LoginTab = createStackNavigator(
+  {
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Register: {
+      screen: Register
+    }
+  },
+  {
+     initialRouteName: "Login",
+  }
+)
+
+const RootTab = TabNavigator (
+  {
+    Discover: HomeTab,
+    Plan: PlanTab,
+    Diary: DiaryTab,
+    Chat: ChatTab,
+    Me: MeTab,
+  },
+  {
+    initialRouteName: "Discover",
+    navigationOptions: ({ navigation }) => {
+      const { routeName, routes } = navigation.state;
+      let params = routes && routes[1] && routes[1].params;
+      switch(routeName) {
+        case "Discover":
+          var icon = require('./res/Discover.png')
+          break;
+        case "Plan":
+          var icon =require('./res/Plan.png')
+          break;
+        case "Diary":
+          var icon = require('./res/Diary.png')
+          break;
+        case "Chat":
+          var icon =require('./res/Chat.png')
+          break;
+        case "Me":
+          var icon = require('./res/Me.png')
+      }
+      return {
+        tabBarIcon: ({ focused, tintColor }) => {
+          return (  <Image
+                      style={{width: '100%',
+                              height: 30,
+                              tintColor: tintColor}}
+                      source={icon}
+                      resizeMode="contain"
+                    /> )
+        },
+        tabBarVisible:
+          params && params.hideTabBar != null ? !params.hideTabBar : true,
+        swipeEnabled:
+          params && params.hideTabBar != null ? !params.hideTabBar : true
+      };
+    },
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: "bottom",
+    animationEnabled: true,
+    swipeEnabled: true
+  }
+)
 
 export default class App extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {loggedIn: true};
+  }
   render() {
-    return <RootStack />;
+    console.disableYellowBox = true;
+    return (this.state.loggedIn ? <RootTab /> : <LoginTab /> );
   }
 }
-    /*
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>Farking Christ, edit App.js</Text>
-        <Text style={styles.instructions}></Text>
-        <Routes />
-      </View>
-    );*/
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  image:{
-    width: '100%',
-    height: 60,
-    resizeMode: 'contain'
-  },
-});
