@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {TouchableOpacity, Image, Platform, StyleSheet, Text, View, Button} from 'react-native';
 
 
-class NavigationButton extends Component {
+export class NavigationButton extends Component {
   constructor(props) {
     super(props);
     this.state = {pressStatus: true };
@@ -32,27 +32,27 @@ export default class BottomBar extends Component {
         <NavigationButton
           navigation ={this.props.navigation}
           navKey='Home'
-          src={require('./res/discover_untouched.png')}>
+          src={require('./res/icons/Discover.png')}>
         </NavigationButton>
         <NavigationButton
           navigation ={this.props.navigation}
           navKey='Plan'
-          src={require('./res/plan_untouched.png')}>
+          src={require('./res/icons/Plan.png')}>
         </NavigationButton>
         <NavigationButton
           navigation ={this.props.navigation}
-          navKey='MyDiary'
-          src={require('./res/my_diary_untouched.png')}>
+          navKey='Diary'
+          src={require('./res/icons/Diary.png')}>
         </NavigationButton>
         <NavigationButton
           navigation ={this.props.navigation}
           navKey='Chat'
-          src={require('./res/chat_untouched.png')}>
+          src={require('./res/icons/Chat.png')}>
         </NavigationButton>
         <NavigationButton
           navigation ={this.props.navigation}
-          navKey='BasicInfo'
-          src={require('./res/me_untouched.png')}>
+          navKey='Me'
+          src={require('./res/icons/Me.png')}>
         </NavigationButton>
       </View>
     );
