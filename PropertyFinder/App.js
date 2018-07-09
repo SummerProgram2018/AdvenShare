@@ -104,19 +104,19 @@ const RootTab = TabNavigator (
       let params = routes && routes[1] && routes[1].params;
       switch(routeName) {
         case "Discover":
-          var icon = require('./res/Discover.png')
+          var icon = require('./res/icons/Discover.png')
           break;
         case "Plan":
-          var icon =require('./res/Plan.png')
+          var icon =require('./res/icons/Plan.png')
           break;
         case "Diary":
-          var icon = require('./res/Diary.png')
+          var icon = require('./res/icons/Diary.png')
           break;
         case "Chat":
-          var icon =require('./res/Chat.png')
+          var icon =require('./res/icons/Chat.png')
           break;
         case "Me":
-          var icon = require('./res/Me.png')
+          var icon = require('./res/icons/Me.png')
       }
       return {
         tabBarIcon: ({ focused, tintColor }) => {
