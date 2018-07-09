@@ -8,7 +8,7 @@
 
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, Dimensions, View, Image, TextInput, Button, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Keyboard} from 'react-native';
 import {NavigationButton} from "../navigation";
 
 class Inputs extends Component {
@@ -36,6 +36,7 @@ class Inputs extends Component {
   render() {
     return (
         <View style={styles.inputsContainer}>
+          <View style={{flex: 4}}>
             <TextInput style = {styles.input}
                underlineColorAndroid = "#ffffff"
                placeholder = "Username"
@@ -51,15 +52,16 @@ class Inputs extends Component {
                buttonColor = "#ffffff"
                secureTextEntry = {true}
                onChangeText = {this.handlePassword}/>
-            <View style={styles.submitButton}>
-              <View style={{width: 100}}>
-                <Button
-                  onPress = {() => this.login(this.state.username, this.state.password)}
-                  title="SIGN IN"
-                  color="#CCCCCC"
-                />
-              </View>
+          </View>
+          <View style={styles.submitButton}>
+            <View style={{width: 100, marginTop: 10}}>
+              <Button
+                onPress = {() => this.login(this.state.username, this.state.password)}
+                title="SIGN IN"
+                color="#CCCCCC"
+              />
             </View>
+          </View>
          </View>
     );
   }
@@ -67,22 +69,45 @@ class Inputs extends Component {
 
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {keyboard: false}
+  }
+
+  componentWillMount () {
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+    this.setState({keyboard: true})
+  }
+
+  keyboardWillHide = (event) => {
+    this.setState({keyboard: false})
+  }
+
   render() {
     return (
         <View style={styles.container}>
-          <Image style={styles.backgroundImage} source={require('../res/LoginBackground.png')}/>
-          <View style = {styles.advenShareLogo}>
-            <Image source ={require('../res/AdvenShare.png')} style={styles.logo}/>
+          <View style={styles.keyboardShown}>
+            <Image style={styles.backgroundImage} source={require('../res/LoginBackground.png')}/>
+            <View style = {styles.advenShareLogo}>
+              <Image source ={require('../res/AdvenShare.png')} style={styles.logo}/>
+            </View>
+            {this.state.keyboard ? <View style={{height: 4}}/> : <View style={{height: 20}}/>}
+            <View style={{flex: 30}}>
+              <Inputs/>
+            </View>
+            <View style = {styles.additionalLinks}>
+            </View>
           </View>
-          <View style = {styles.logInTextBox}>
-            <Text style= {styles.logInText}>
-            LOG IN
-            </Text>
-          </View>
-          <Inputs/>
-          <View style = {styles.additionalLinks}>
-          </View>
-          <View style = {styles.placeHolder}/>
+          {this.state.keyboard ? <View/> : <View style = {styles.placeHolder}/>}
         </View>
     );
   }
@@ -94,11 +119,15 @@ var styles = StyleSheet.create({
   },
   backgroundImage:{
     backgroundColor: 'transparent',
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
     position: 'absolute',
     width: '100%',
+    flex: 1,
     height: '100%',
-    justifyContent: 'center',
+    //justifyContent: 'center',
+  },
+  keyboardShown:{
+    flex:5
   },
   list: {
     justifyContent: 'center',
@@ -150,10 +179,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   placeHolder: {
-    flex: 20
+    flex: 2,
+    backgroundColor: 'blue'
   },
   inputsContainer: {
-    flex: 20,
+    height: 165,
     marginLeft: 30,
     marginRight: 30,
     padding: 5,
@@ -165,13 +195,13 @@ var styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   input: {
-    flex: 1,
     backgroundColor: '#fff',
     marginLeft: 10,
     marginRight: 10,
     marginTop: 10,
-    height: 6,
-    borderRadius: 5
+    height: 40,
+    borderRadius: 5,
+    fontSize: 10
   },
   submitButton: {
     flex: 2,
