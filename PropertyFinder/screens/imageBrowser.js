@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, TextInput, Button,
-  TouchableOpacity, AppRegistry, TouchableHighlight, Modal, CameraRoll,
-  Dimensions, ScrollView} from 'react-native';
-
-export default class ImageBrowser extends Component{
-  
-}
-=======
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -54,4 +43,3 @@ var styles = StyleSheet.create({
        height: 100,
    },
 });
->>>>>>> 40bbca4534e1a9d49b406791402036ae6ec7cd18
