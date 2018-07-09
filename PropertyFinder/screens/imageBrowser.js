@@ -1,23 +1,39 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, CameraRoll} from 'react-native';
 
 export default class ImageBrowser extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      modalVisible: false,
+      photos: [],
+      index: null
+    }
+    getPhotos = this.getPhotos.bind(this)
+    componentDidMount = this.componentDidMount.bind(this)
+  }
+
+  getPhotos = () => {
+    CameraRoll.getPhotos({
+      first: 4,
+      assetType: 'All' /*Change this line if we want only photos (currently gets video too)*/
+    })
+    .then(r => this.setState({ photos: r.edges }))
+  }
+
+  componentDidMount() {
+    this.getPhotos();
+  }
+
   render() {
     return (
-        <View style={styles.container}>
-          <View style={styles.list}>
-            <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
-          </View>
-          <Text>Image Browser</Text>
-        </View>
+      <View style={styles.container}>
+        <Image
+          style={styles.photos}
+          source={this.state.photos}
+        />
+        <Text>Image Browser</Text>
+      </View>
     );
   }
 }
@@ -42,4 +58,9 @@ var styles = StyleSheet.create({
        flexDirection: 'row',
        height: 100,
    },
+   photos: {
+     width: 51,
+     height: 51,
+     resizeMode: 'contain'
+   }
 });

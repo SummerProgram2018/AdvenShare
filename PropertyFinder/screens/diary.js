@@ -7,9 +7,14 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, TextInput, Button,
-  TouchableOpacity, AppRegistry, TouchableHighlight, Modal, CameraRoll,
-  Dimensions, ScrollView} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity} from 'react-native';
+
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
 
 class DiaryTextInput extends Component{
   render () {
@@ -25,18 +30,6 @@ class DiaryTextInput extends Component{
   }
 }
 
-class PhotoBrowse extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button
-            title='Browse Images'
-            onPress={() => this.props.navigation.navigate('ImageBrowser')}
-        />
-      </View>
-    )
-  }
-}
 
 
 export default class Diary extends Component<Props> {
@@ -55,24 +48,19 @@ export default class Diary extends Component<Props> {
   render () {
     return (
       <View style={styles.container}>
-          <PhotoBrowse navigation={this.props.navigation}/>
-          <View style={styles.list}>
-              <TextInput
-                editable = {true}
-                autoFocus = {true}
-                blurOnSubmit = {false}
-                style = {{height: 80, width: 320, borderColor: 'blue', borderWidth: 1}}
-                onChangeText = {(text) => this.setState({text})}
-                value = {this.state.text}
-              />
-            <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
-          </View>
+        <Image style={styles.backgroundImage} source={require('../res/cloud.png')}/>
+        <TextInput
+          blurOnSubmit = {false}
+          style = {{height: 80, width: 320, borderColor: 'blue', borderWidth: 1}}
+          onChangeText = {(text) => this.setState({text})}
+          value = {this.state.text}
+        />
         <View style={styles.diaryView}>
         <Button
           title = "Save Entry"
           color = "#841584"
           onPress={onPressLearnMore}
-        />
+          />
         <Text style={{backgroundColor: 'transparent'}}> {this.state.savedText} </Text>
         </View>
       </View>
