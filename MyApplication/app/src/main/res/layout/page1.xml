@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="dalian" />
+
+        <Button
+            android:id="@+id/query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUTTON" />
+
+    </LinearLayout>
+
+
+       <WebView
+        android:id="@+id/wv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+           <Switch
+               android:id="@+id/switch1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Switch" />
+       </WebView>
+
+
+</LinearLayout>
